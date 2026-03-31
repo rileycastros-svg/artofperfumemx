@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art of Perfume | Descubre tu perfume ideal</title>
+    <meta name="description" content="Quiz interactivo de Art of Perfume. Descubre tu perfil olfativo y encuentra el perfume ideal según tu personalidad y estilo.">
+    <meta name="theme-color" content="#6a38c2">
+    <meta property="og:title" content="Art of Perfume | Quiz de Perfumes">
+    <meta property="og:description" content="Descubre tu perfil olfativo y encuentra el perfume ideal según tu personalidad.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/art-of-perfume-preview.jpeg">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fimgs.net">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(180deg, #ffffff, #efe9ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .app {
+            width: 560px;
+            max-width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 220px;
+            display: block;
+            margin: auto;
+        }
+
+        .logo-placeholder {
+            width: 220px;
+            margin: auto;
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #6a38c2;
+            letter-spacing: 1px;
+        }
+
+        .progress {
+            height: 8px;
+            background: #e6e0ff;
+        }
+
+        .progress-bar {
+            height: 8px;
+            width: 0%;
+            background: linear-gradient(90deg, #6a38c2, #9c5ef5);
+            transition: 0.4s;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #3a1d7a;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: none;
+            border-radius: 10px;
+            background: #ede7ff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #d8ccff;
+            transform: scale(1.02);
+        }
+
+        .start {
+            background: linear-gradient(135deg, #6a38c2, #9c5ef5);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, #f5f0ff, #e8e0ff);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            text-align: left;
+            border: 1px solid #d8ccff;
+        }
+
+        .profile-card h3 {
+            color: #3a1d7a;
+            margin: 0 0 8px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .profile-desc {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(106, 56, 194, 0.08);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #8a7ab5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 12px;
+            color: #3a1d7a;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .perfume-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .perfume-card {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .perfume-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .perfume-card img {
+            width: 100%;
+            max-width: 80px;
+            margin: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .perfume-card h3 {
+            font-size: 12px;
+            margin: 6px 0 3px;
+            color: #3a1d7a;
+        }
+
+        .perfume-card p {
+            font-size: 11px;
+            color: #555;
+            margin: 0 0 6px;
+        }
+
+        .buy-link {
+            display: block;
+            background: #6a38c2;
+            color: white;
+            border: none;
+            padding: 7px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            width: 100%;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .buy-link:hover {
+            background: #5128a8;
+        }
+
+        .restart {
+            margin-top: 16px;
+            background: linear-gradient(135deg, #6a38c2, #9c5ef5);
+            color: white;
+            font-weight: bold;
+        }
+
+        .dupe-card {
+            background: linear-gradient(135deg, #f5f0ff, #ede7ff);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            border: 2.5px solid #6a38c2;
+            grid-column: 1/-1;
+            box-shadow: 0 8px 25px rgba(106, 56, 194, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: dupeGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes dupeGlow {
+            0% { box-shadow: 0 8px 25px rgba(106, 56, 194, 0.3); }
+            100% { box-shadow: 0 8px 35px rgba(106, 56, 194, 0.5); }
+        }
+
+        .dupe-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(25deg); }
+            100% { transform: translateX(100%) rotate(25deg); }
+        }
+
+        .dupe-card img {
+            width: 100%;
+            max-width: 220px;
+            margin: auto;
+            display: block;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dupe-card h3 {
+            font-size: 15px;
+            color: #3a1d7a;
+            margin: 10px 0 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dupe-card p {
+            font-size: 12px;
+            color: #555;
+            margin: 0 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dupe-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a38c2, #9c5ef5);
+            color: white;
+            font-size: 11px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .buy-dupe {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a38c2, #9c5ef5);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(106, 56, 194, 0.4);
+            transition: all 0.2s;
+        }
+
+        .buy-dupe:hover {
+            background: linear-gradient(135deg, #5128a8, #7b40d4);
+            transform: scale(1.05);
+        }
+
+        .dupe-badge {
+            background: #ff6b35;
+            color: white;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dupe-price {
+            font-size: 13px;
+            color: #6a38c2;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .app { border-radius: 14px; }
+            .header { padding: 15px; }
+            .logo, .logo-placeholder { width: 180px; }
+            .content { padding: 15px; }
+            .profile-stats { grid-template-columns: 1fr 1fr; }
+            .perfume-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            h2 { font-size: 1.1em; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 5px; align-items: flex-start; }
+            .app { border-radius: 10px; margin-top: 5px; }
+            .header { padding: 10px; }
+            .logo, .logo-placeholder { width: 150px; }
+            .content { padding: 12px; }
+            .profile-stats { grid-template-columns: 1fr; }
+            .perfume-grid { grid-template-columns: 1fr; gap: 10px; }
+            .perfume-card img { max-width: 100px; }
+            .dupe-card img { max-width: 160px; }
+            h2 { font-size: 1em; }
+            button { padding: 10px; font-size: 13px; }
+            .stat { padding: 8px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <img class="logo" src="images/logo.jpg" alt="Art of Perfume - Logo"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <div class="logo-placeholder" style="display:none" aria-hidden="true">✨ Art of Perfume ✨</div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        <div class="content">
+            <h2 id="question">Descubre tu perfume ideal</h2>
+            <div id="answers"></div>
+            <button class="start" onclick="startQuiz()" id="start">✨ Comenzar Quiz</button>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {
+                q: "¿Cuál es tu género o estilo?", options: [
+                    { text: "Femenino", type: "_", gender: "F" },
+                    { text: "Masculino", type: "_", gender: "M" },
+                    { text: "Unisex / Sin preferencia", type: "_", gender: "U" }
+                ]
+            },
+            {
+                q: "¿Qué ambiente prefieres?", options: [
+                    { text: "🏖️ Playa o lugares frescos", type: "citrico" },
+                    { text: "🌸 Jardín lleno de flores", type: "floral" },
+                    { text: "☕ Cafetería o postres", type: "dulce" },
+                    { text: "🌃 Ciudad elegante de noche", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Qué bebida prefieres?", options: [
+                    { text: "🍋 Limonada o bebidas frescas", type: "citrico" },
+                    { text: "🍵 Té de flores o smoothie frutal", type: "floral" },
+                    { text: "🍫 Chocolate o capuccino", type: "dulce" },
+                    { text: "🥃 Whisky o café fuerte", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Cómo quieres que te perciban?", options: [
+                    { text: "😌 Fresco y relajado", type: "citrico" },
+                    { text: "🌹 Romántico y delicado", type: "floral" },
+                    { text: "🍬 Atractivo y dulce", type: "dulce" },
+                    { text: "🖤 Elegante e intenso", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Qué clima te gusta más?", options: [
+                    { text: "☀️ Verano y brisa marina", type: "citrico" },
+                    { text: "🌷 Primavera con flores", type: "floral" },
+                    { text: "🍂 Clima templado", type: "dulce" },
+                    { text: "❄️ Invierno o noche fría", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Cuál es tu color favorito?", options: [
+                    { text: "💙 Azul o verde agua", type: "citrico" },
+                    { text: "💗 Rosa o lavanda", type: "floral" },
+                    { text: "✨ Dorado o crema", type: "dulce" },
+                    { text: "🖤 Negro o rojo oscuro", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Qué actividad disfrutas más?", options: [
+                    { text: "🏃 Deportes al aire libre", type: "citrico" },
+                    { text: "🌿 Pasear por parques o jardines", type: "floral" },
+                    { text: "🎬 Ver películas en casa", type: "dulce" },
+                    { text: "🎶 Salidas nocturnas o eventos", type: "fuerte" }
+                ]
+            },
+            {
+                q: "¿Cuándo usarás más tu perfume?", options: [
+                    { text: "🌅 Día a día, casual", type: "citrico" },
+                    { text: "🌼 Citas y momentos especiales", type: "floral" },
+                    { text: "🏠 Trabajo y estudio", type: "dulce" },
+                    { text: "🌙 Noches y eventos elegantes", type: "fuerte" }
+                ]
+            }
+        ];
+
+        let index = 0, gender = "U", score = { citrico: 0, floral: 0, dulce: 0, fuerte: 0 };
+
+        const profiles = {
+            citrico: {
+                title: "🌊 Alma Fresca",
+                desc: "Eres una persona que irradia frescura y energía positiva. Tu personalidad vibrante y relajada atrae a los demás como un día soleado en la playa. Prefieres la simplicidad elegante y la libertad.",
+                notas: "Bergamota, Limón, Agua de Mar, Menta",
+                ocasion: "Día a día, trabajo, actividades al aire libre",
+                estacion: "Primavera y Verano",
+                personalidad: "Optimista, Sociable, Aventurero/a",
+                tip: "Aplica en puntos de pulso y un toque en el cabello para que la frescura te acompañe todo el día."
+            },
+            floral: {
+                title: "🌸 Espíritu Romántico",
+                desc: "Tu esencia es delicada y encantadora. Tienes una sensibilidad especial que se refleja en tu forma de conectar con las personas. El romanticismo y la belleza natural te definen.",
+                notas: "Rosa, Jazmín, Peonía, Gardenia",
+                ocasion: "Citas románticas, brunch, eventos sociales",
+                estacion: "Primavera",
+                personalidad: "Sensible, Elegante, Soñador/a",
+                tip: "Rocía en muñecas y detrás de las orejas. Un toque en el escote hará que la fragancia florezca con tu calor corporal."
+            },
+            dulce: {
+                title: "🍯 Esencia Irresistible",
+                desc: "Tu personalidad cálida y acogedora hace que todos se sientan bienvenidos. Eres como un abrazo reconfortante con un toque de sofisticación. La dulzura es tu superpoder.",
+                notas: "Vainilla, Caramelo, Pralinée, Almizcle",
+                ocasion: "Oficina, reuniones, salidas casuales",
+                estacion: "Otoño e Invierno",
+                personalidad: "Cariñoso/a, Confiable, Magnético/a",
+                tip: "Aplica en los puntos de pulso calientes: muñecas, cuello y detrás de las rodillas. El calor activará las notas dulces."
+            },
+            fuerte: {
+                title: "🖤 Aura Poderosa",
+                desc: "Irradias poder y sofisticación. Tu presencia no pasa desapercibida. Eres alguien que sabe lo que quiere y lo consigue con estilo. La intensidad es tu firma personal.",
+                notas: "Oud, Ámbar, Sándalo, Cuero",
+                ocasion: "Eventos elegantes, noches especiales, galas",
+                estacion: "Otoño e Invierno",
+                personalidad: "Decidido/a, Misterioso/a, Líder",
+                tip: "Menos es más con fragancias intensas. Un solo spray en el pecho y otro en la muñeca será suficiente para dejar huella."
+            }
+        };
+
+        const allPerfumes = {
+            citrico: [
+                { name: "Acqua di Gio", desc: "Fresca marina de Giorgio Armani", img: "https://fimgs.net/mdimg/perfume/375x500.410.jpg", link: "https://www.sephora.com/product/acqua-di-gio-P377547", g: "U" },
+                { name: "Light Blue", desc: "Cítrico mediterráneo de D&G", img: "https://fimgs.net/mdimg/perfume/375x500.485.jpg", link: "https://www.sephora.com/product/light-blue-P394142", g: "U" },
+                { name: "CK One", desc: "Icono unisex cítrico y limpio", img: "https://fimgs.net/mdimg/perfume/375x500.396.jpg", link: "https://www.amazon.com/s?k=CK+One", g: "U" },
+                { name: "Versace Eau Fraiche", desc: "Fresco, limón y sándalo", img: "https://fimgs.net/mdimg/perfume/375x500.644.jpg", link: "https://www.amazon.com/s?k=Versace+Eau+Fraiche", g: "M" },
+                { name: "Clinique Happy", desc: "Cítricos florales energizantes", img: "https://fimgs.net/mdimg/perfume/375x500.304.jpg", link: "https://www.amazon.com/s?k=Clinique+Happy", g: "F" },
+                { name: "Dolce & Gabbana The One Grey", desc: "Lavanda y pomelo elegante", img: "https://fimgs.net/mdimg/perfume/375x500.52498.jpg", link: "https://www.amazon.com/s?k=dg+the+one+grey", g: "M" },
+                { name: "Marc Jacobs Daisy", desc: "Fresca y femenina, fresa y violeta", img: "https://fimgs.net/mdimg/perfume/375x500.4277.jpg", link: "https://www.sephora.com/product/daisy-P218800", g: "F" },
+                { name: "Issey Miyake L'Eau", desc: "Fresca acuática, loto y ciclamen", img: "https://fimgs.net/mdimg/perfume/375x500.192.jpg", link: "https://www.amazon.com/s?k=Issey+Miyake", g: "U" }
+            ],
+            floral: [
+                { name: "Chance Eau Tendre", desc: "Floral afrutado de Chanel", img: "https://fimgs.net/mdimg/perfume/375x500.11522.jpg", link: "https://www.sephora.com/product/chance-eau-tendre-P391913", g: "F" },
+                { name: "Miss Dior Blooming", desc: "Peonía y sandía delicada", img: "https://fimgs.net/mdimg/perfume/375x500.15801.jpg", link: "https://www.sephora.com/product/miss-dior-blooming-bouquet-P438439", g: "F" },
+                { name: "Gucci Bloom", desc: "Jazmín y tuberosa intenso", img: "https://fimgs.net/mdimg/perfume/375x500.47017.jpg", link: "https://www.ulta.com/p/gucci-bloom-eau-de-parfum-xlsImpprod5291060", g: "F" },
+                { name: "Replica Flower Market", desc: "Rosas y grosellas de Margiela", img: "https://fimgs.net/mdimg/perfume/375x500.45019.jpg", link: "https://www.sephora.com/product/replica-flower-market-P466001", g: "U" },
+                { name: "Jo Malone Peony Blush", desc: "Peonía, manzana roja y jazmín", img: "https://fimgs.net/mdimg/perfume/375x500.20021.jpg", link: "https://www.amazon.com/s?k=Jo+Malone+Peony", g: "U" },
+                { name: "Versace Bright Crystal", desc: "Magnolia, loto y ámbar", img: "https://fimgs.net/mdimg/perfume/375x500.1673.jpg", link: "https://www.amazon.com/s?k=Versace+Bright+Crystal", g: "F" },
+                { name: "YSL Libre", desc: "Lavanda y flor de azahar", img: "https://fimgs.net/mdimg/perfume/375x500.56122.jpg", link: "https://www.sephora.com/product/libre-eau-de-parfum-P449685", g: "F" },
+                { name: "Gucci Guilty Pour Homme", desc: "Floral amaderado masculino", img: "https://fimgs.net/mdimg/perfume/375x500.9831.jpg", link: "https://www.amazon.com/s?k=Gucci+Guilty+Pour+Homme", g: "M" }
+            ],
+            dulce: [
+                { name: "Black Opium", desc: "Café y vainilla de YSL", img: "https://fimgs.net/mdimg/perfume/375x500.25324.jpg", link: "https://www.sephora.com/product/black-opium-P392995", g: "F" },
+                { name: "La Vie Est Belle", desc: "Iris y pralinée de Lancôme", img: "https://fimgs.net/mdimg/perfume/375x500.14982.jpg", link: "https://www.sephora.com/product/la-vie-est-belle-P391912", g: "F" },
+                { name: "Good Girl", desc: "Almendra, jazmín y cacao de CH", img: "https://fimgs.net/mdimg/perfume/375x500.39681.jpg", link: "https://www.sephora.com/product/good-girl-P423393", g: "F" },
+                { name: "Alien Goddess", desc: "Vainilla solar de Mugler", img: "https://fimgs.net/mdimg/perfume/375x500.68682.jpg", link: "https://www.sephora.com/product/alien-goddess-eau-de-parfum-P501217", g: "F" },
+                { name: "Spicebomb Extreme", desc: "Vainilla y especias de V&R", img: "https://fimgs.net/mdimg/perfume/375x500.29299.jpg", link: "https://www.amazon.com/s?k=Spicebomb+Extreme", g: "M" },
+                { name: "JPG Le Male Le Parfum", desc: "Vainilla, iris y cardamomo", img: "https://fimgs.net/mdimg/perfume/375x500.61778.jpg", link: "https://www.amazon.com/s?k=Le+Male+Le+Parfum", g: "M" },
+                { name: "Ariana Grande Cloud", desc: "Lavanda y coco cremoso", img: "https://fimgs.net/mdimg/perfume/375x500.52837.jpg", link: "https://www.amazon.com/s?k=Ariana+Grande+Cloud", g: "U" },
+                { name: "Sol de Janeiro 62", desc: "Caramelo salado y pistache", img: "https://fimgs.net/mdimg/perfume/375x500.49437.jpg", link: "https://www.amazon.com/s?k=Sol+de+Janeiro+62", g: "U" }
+            ],
+            fuerte: [
+                { name: "Dior Sauvage", desc: "Ambroxan y bergamota de Dior", img: "https://fimgs.net/mdimg/perfume/375x500.31861.jpg", link: "https://www.sephora.com/product/sauvage-P391516", g: "M" },
+                { name: "Bleu de Chanel", desc: "Cedro y sándalo de Chanel", img: "https://fimgs.net/mdimg/perfume/375x500.9099.jpg", link: "https://www.sephora.com/product/bleu-de-chanel-P377547", g: "M" },
+                { name: "Baccarat Rouge 540", desc: "El perfume más lujoso del mundo", img: "https://fimgs.net/mdimg/perfume/375x500.54277.jpg", link: "https://www.sephora.com/product/baccarat-rouge-540-P430569", g: "U" },
+                { name: "Tom Ford Oud Wood", desc: "Oud y sándalo exótico", img: "https://fimgs.net/mdimg/perfume/375x500.1826.jpg", link: "https://www.amazon.com/s?k=Tom+Ford+Oud+Wood", g: "U" },
+                { name: "Libre Intense YSL", desc: "Lavanda y vainilla intensa", img: "https://fimgs.net/mdimg/perfume/375x500.62963.jpg", link: "https://www.amazon.com/s?k=YSL+Libre+Intense", g: "F" },
+                { name: "Valentino Uomo Intense", desc: "Cuero e iris oscuro", img: "https://fimgs.net/mdimg/perfume/375x500.36575.jpg", link: "https://www.amazon.com/s?k=Valentino+Uomo+Intense", g: "M" },
+                { name: "CH Men Privé", desc: "Whisky, cuero y madera", img: "https://fimgs.net/mdimg/perfume/375x500.31890.jpg", link: "https://www.amazon.com/s?k=CH+Men+Prive", g: "M" },
+                { name: "Lancôme Idôle", desc: "Rosa y jazmín con fondo amaderado", img: "https://fimgs.net/mdimg/perfume/375x500.55389.jpg", link: "https://www.amazon.com/s?k=Lancome+Idole", g: "F" }
+            ]
+        };
+
+        /* ── IMAGEN DEL DUPE ── */
+        const DUPE_IMG = "images/art-of-perfume-dupe.jpeg";
+
+        function startQuiz() {
+            document.getElementById("start").style.display = "none";
+            showQuestion();
+        }
+
+        function updateProgress() {
+            const pct = (index / questions.length) * 100;
+            const bar = document.getElementById("progress");
+            bar.style.width = pct + "%";
+            bar.parentElement.setAttribute("aria-valuenow", Math.round(pct));
+        }
+
+        function showQuestion() {
+            updateProgress();
+            const q = questions[index];
+            const container = document.getElementById("answers");
+            document.getElementById("question").innerText = q.q;
+            container.innerHTML = "";
+            q.options.forEach(function(o) {
+                const btn = document.createElement("button");
+                btn.innerText = o.text;
+                btn.onclick = function() { selectAnswer(o.type, o.gender); };
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(type, g) {
+            if (g) gender = g;
+            if (type !== "_") score[type]++;
+            index++;
+            if (index < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function showResult() {
+            document.getElementById("progress").style.width = "100%";
+            document.getElementById("progress").parentElement.setAttribute("aria-valuenow", "100");
+
+            const result = Object.keys(score).reduce(function(a, b) {
+                return score[a] > score[b] ? a : b;
+            });
+            const p = profiles[result];
+
+            let pool = allPerfumes[result].filter(function(x) {
+                return gender === "U" || x.g === "U" || x.g === gender;
+            });
+            if (pool.length < 3) pool = allPerfumes[result];
+            const picked = shuffle([...pool]).slice(0, 4);
+
+            const dupeNames = {
+                citrico: "Acqua Fresh",
+                floral: "Bloom Garden",
+                dulce: "Sweet Noir",
+                fuerte: "Dark Oud"
+            };
+            const dupeDescs = {
+                citrico: "Inspirado en Acqua di Gio — frescura marina premium",
+                floral: "Inspirado en Gucci Bloom — jardín floral en tu piel",
+                dulce: "Inspirado en Black Opium — café y vainilla adictiva",
+                fuerte: "Inspirado en Baccarat Rouge 540 — lujo accesible"
+            };
+
+            let html = '<div class="profile-card">'
+                + '<h3>' + p.title + '</h3>'
+                + '<p class="profile-desc">' + p.desc + '</p>'
+                + '<div class="profile-stats">'
+                + '<div class="stat"><div class="stat-label">🎵 Notas Ideales</div><div class="stat-value">' + p.notas + '</div></div>'
+                + '<div class="stat"><div class="stat-label">📅 Ocasión</div><div class="stat-value">' + p.ocasion + '</div></div>'
+                + '<div class="stat"><div class="stat-label">🌤️ Estación</div><div class="stat-value">' + p.estacion + '</div></div>'
+                + '<div class="stat"><div class="stat-label">💎 Personalidad</div><div class="stat-value">' + p.personalidad + '</div></div>'
+                + '</div>'
+                + '<p style="font-size:11px;color:#6a38c2;margin:10px 0 0;text-align:center"><strong>💡 Tip:</strong> ' + p.tip + '</p>'
+                + '</div>';
+
+            html += '<div class="perfume-grid">'
+                + '<div class="dupe-card">'
+                + '<span class="dupe-badge">🏆 RECOMENDACIÓN #1</span><br>'
+                + '<span class="dupe-tag">✨ Exclusivo Art of Perfume</span>'
+                + '<img src="' + DUPE_IMG + '" alt="' + dupeNames[result] + ' – Art of Perfume" onerror="this.style.background=\'linear-gradient(135deg,#6a38c2,#9c5ef5)\';this.style.height=\'120px\';this.alt=\'Art of Perfume\'">'
+                + '<h3>🌟 ' + dupeNames[result] + ' — Art of Perfume</h3>'
+                + '<p>' + dupeDescs[result] + '</p>'
+                + '<p class="dupe-price">💰 Misma fragancia, fracción del precio</p>'
+                + '<a class="buy-dupe" href="https://www.tiktok.com/@artofperfume" target="_blank" rel="noopener">🛍️ Comprar en TikTok Shop →</a>'
+                + '</div>';
+
+            picked.forEach(function(x) {
+                html += '<div class="perfume-card">'
+                    + '<img src="' + x.img + '" alt="' + x.name + '" onerror="this.style.background=\'#ede7ff\';this.style.height=\'80px\'">'
+                    + '<h3>' + x.name + '</h3>'
+                    + '<p>' + x.desc + '</p>'
+                    + '<a class="buy-link" href="' + x.link + '" target="_blank" rel="noopener">🛒 Ver en tienda</a>'
+                    + '</div>';
+            });
+
+            html += '</div>'
+                + '<button class="restart" onclick="location.reload()">🔄 Reiniciar Quiz</button>';
+
+            document.getElementById("question").innerText = "Tu Perfil Olfativo";
+            document.getElementById("answers").innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>
